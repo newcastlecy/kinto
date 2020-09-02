@@ -1,12 +1,16 @@
+#!/bin/sh
+
+# config v2ray
+cat << EOF > /etc/config.json
 {
     "inbounds": [
         {
-            "port": 8888,
+            "port": $PORT,
             "protocol": "vmess",
             "settings": {
                 "clients": [
                     {
-                        "id": "c95ef1d4-f3ac-4586-96e9-234a37dda068"
+                        "id": "$UUID"
                     }
                 ]
             },
@@ -56,4 +60,9 @@
             }
         ]
     }
-}
+}		
+EOF
+
+# start tor and v2ray
+nohup tor &
+v2ray -config /etc/config.json
